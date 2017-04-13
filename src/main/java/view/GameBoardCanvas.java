@@ -1,6 +1,6 @@
 package view;
 
-import user.controller.UserController;
+import user.controller.UserControllerImpl;
 import view.stone.StoneFactory;
 import view.stone.StoneHistory;
 import view.stone.URLGetter;
@@ -27,7 +27,7 @@ public class GameBoardCanvas extends Canvas {
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<StoneHistory> historyOfStone = new ArrayList<StoneHistory>();
+    private ArrayList<StoneHistory> historyOfStone;
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
@@ -52,9 +52,10 @@ public class GameBoardCanvas extends Canvas {
     private MouseAdapter mMouseAdapter;
 
 
-    private UserController mUserController;
+    private UserControllerImpl mUserController;
 
     public GameBoardCanvas() {
+        resetHistoryOfStone();
         imageLoad();
         traker();
     }
@@ -70,10 +71,10 @@ public class GameBoardCanvas extends Canvas {
 
 
                         point = FindCrossPoint.find(e.getX(), e.getY());
-                        System.out.println("click x:"+point[0]+" y:" + point[1]);
+                        // System.out.println("click x:"+point[0]+" y:" + point[1]);
 
                         int[] ingamePoint = findIngamePoint(point);
-                        System.out.println("ingame x:"+ingamePoint[0]+" y:"+ingamePoint[1]);
+                        // System.out.println("ingame x:"+ingamePoint[0]+" y:"+ingamePoint[1]);
 
                         listener.onNewStone(ingamePoint);
                     }
@@ -100,6 +101,10 @@ public class GameBoardCanvas extends Canvas {
         repaint();
     }
 
+    public void resetHistoryOfStone() {
+        this.historyOfStone = new ArrayList<StoneHistory>();
+    }
+
     // Version 1.01 update
     protected boolean isStoneDraw(int[] points) {
 
@@ -123,7 +128,7 @@ public class GameBoardCanvas extends Canvas {
 
     public void paint(Graphics g) {
         g.drawImage(bi, 0, 0, this);
-//			System.out.println("paint()!");
+//			// System.out.println("paint()!");
 //			update(g);
     }
 
@@ -132,7 +137,7 @@ public class GameBoardCanvas extends Canvas {
      */
     public void update(Graphics g) {
 
-//			System.out.println("update()");
+//			// System.out.println("update()");
 
         drawStones(g);
     }
@@ -148,11 +153,11 @@ public class GameBoardCanvas extends Canvas {
             if (lastStone != null)
                 g.drawImage(lastStone, lastPoint[0], lastPoint[1], this);
 
-            System.out.println("history : " + historyOfStone);
+            // System.out.println("history : " + historyOfStone);
             // points = (int)((point + XSTART -10) / CELLSIZE) * CELLSIZE - 9;
             lastPoint[0] = aStoneInfo.points[0] * 29 - 29 + XSTART;
             lastPoint[1] = aStoneInfo.points[1] * 29 - 29 + YSTART;
-            // System.out.println(lastPoint[0]+" "+lastPoint[1]);
+            // // System.out.println(lastPoint[0]+" "+lastPoint[1]);
             lastStone = aStoneInfo.getStone();
 
             g.drawImage(aStoneInfo.getStone(), lastPoint[0], lastPoint[1], this);

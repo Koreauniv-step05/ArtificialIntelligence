@@ -14,8 +14,7 @@ public class GameBoardView extends JPanel {
     private GameBoardCanvas m_board = new GameBoardCanvas();
 
     public GameBoardView() {
-        execute();
-
+        this.execute();
     }
 
     private void execute() {
@@ -23,27 +22,46 @@ public class GameBoardView extends JPanel {
     }
 
     private void addCanvas() {
-        m_canvasPanel = new JPanel() {
+        this.m_canvasPanel = new JPanel() {
             public void paint(Graphics g) {
                 this.paintComponents(g);
             }
         };
 
-        m_canvasPanel.add(m_board);
-        m_canvasPanel.setLayout(null);
-        m_board.setBounds(5, 5, 590, 593);
+        this.m_canvasPanel.add(this.m_board);
+        this.m_canvasPanel.setLayout(null);
+        this.m_board.setBounds(5, 5, 590, 593);
 
-        add(m_canvasPanel);
-        m_canvasPanel.setBounds(5, 5, 600, 700);
-//		m_canvasPanel.setBorder(new TitledBorder("sdf"));
+        this.add(this.m_canvasPanel);
+        this.m_canvasPanel.setBounds(5, 5, 600, 700);
+//		  m_canvasPanel.setBorder(new TitledBorder("sdf"));
 
-        setLayout(null);
+        this.setLayout(null);
     }
 
+//    public void showBoard(int[][] board) {
+//        this.m_board.resetHistoryOfStone();
+//        for (int i = 0; i < board.length; i++) {
+//            for (int j = 0; j < board[i].length; j++) {
+//                if (board[i][j] == BLACK_STONE) {
+//                    this.drawStone(new int[]{i+1,j+1}, true);
+//                }
+//                else if (board[i][j] == WHITE_STONE) {
+//                    this.drawStone(new int[]{i+1,j+1}, false);
+//                }
+//            }
+//        }
+//    }
+
     public void drawStone(int[] stoneLocation, boolean isBlack) {
-        if (isBlack)
-            m_board.addHistory(stoneLocation, BLACK_STONE);
-        else m_board.addHistory(stoneLocation, WHITE_STONE);
+        if (isBlack) {
+            // System.out.println("GameBoardView : drawBlackStone " + "x: "+stoneLocation[0] +" y: "+ stoneLocation[1]);
+            this.m_board.addHistory(stoneLocation, BLACK_STONE);
+        }
+        else {
+            // System.out.println("GameBoardView : drawWhiteStone " + "x: "+stoneLocation[0] +" y: "+ stoneLocation[1]);
+            this.m_board.addHistory(stoneLocation, WHITE_STONE);
+        }
     }
 
     public GameBoardCanvas getCanvas() {

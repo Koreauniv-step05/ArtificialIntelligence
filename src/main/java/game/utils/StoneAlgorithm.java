@@ -64,9 +64,9 @@ public class StoneAlgorithm {
             else if (checkPoint[X] > 18 || checkPoint[Y] > 18)
                 break;
 
-//			System.out.println("x : " + checkPoint[0]);
-//			System.out.println("y : " + checkPoint[1]);
-//			System.out.println("count : " + count);
+//			// System.out.println("x : " + checkPoint[0]);
+//			// System.out.println("y : " + checkPoint[1]);
+//			// System.out.println("count : " + count);
 
             if(checking(board, point, checkPoint))
                 count++;
@@ -88,9 +88,9 @@ public class StoneAlgorithm {
                 return false;
             }
         } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("x : " + x_check);
-            System.out.println("y : " + y_check);
-            System.out.println("ArrayIndexOutOfBoundsException!!");
+            // System.out.println("x : " + x_check);
+            // System.out.println("y : " + y_check);
+            // System.out.println("ArrayIndexOutOfBoundsException!!");
             return false;
         }
 

@@ -38,7 +38,7 @@ class CrossPointLogic {
     public int[] getResult() {
         logic(x, 0);
         logic(y, 1);
-        // System.out.println(points[0]+" "+points[1]);
+        // // System.out.println(points[0]+" "+points[1]);
         return points;
     }
 

@@ -1,4 +1,8 @@
-package gui;
+package view;
+
+import static consts.Consts.CELLSIZE;
+import static consts.Consts.XSTART;
+import static consts.Consts.YSTART;
 
 /**
  * Created by jaeyoung on 2017. 4. 13..
@@ -13,8 +17,6 @@ class CrossPointLogic {
 
     private int x, y;
 
-    private final int xStart = 20, yStart = 20, cellSize = 29;
-
     private int[] points = new int[2];
 
     public CrossPointLogic(int x, int y) {
@@ -25,17 +27,18 @@ class CrossPointLogic {
     private void logic(int point, int index) {
         int start;
 
-        if (index == 0) start = xStart;
-        else start = yStart;
+        if (index == 0) start = XSTART;
+        else start = YSTART;
 
-        if (((point + start) % cellSize) < cellSize/2)
-            points[index] = (int)((point + start-10) / cellSize) * cellSize - 9;
-        else points[index] = (int)((point + start-10) / cellSize) * cellSize - 9;
+        if (((point + start) % CELLSIZE) < CELLSIZE/2)
+            points[index] = (int)((point + start-10) / CELLSIZE) * CELLSIZE - 9;
+        else points[index] = (int)((point + start-10) / CELLSIZE) * CELLSIZE - 9;
     }
 
     public int[] getResult() {
         logic(x, 0);
         logic(y, 1);
+        // System.out.println(points[0]+" "+points[1]);
         return points;
     }
 

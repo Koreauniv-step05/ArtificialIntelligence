@@ -1,8 +1,9 @@
-package gui;
+package view;
 
-import gui.stone.StoneFactory;
-import gui.stone.StoneHistory;
-import gui.stone.URLGetter;
+import controller.GameController;
+import view.stone.StoneFactory;
+import view.stone.StoneHistory;
+import view.stone.URLGetter;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,10 +11,15 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static consts.Consts.*;
+
 /**
  * Created by jaeyoung on 2017. 4. 13..
  */
 public class GameBoardCanvas extends Canvas {
+    public interface GameBoardCanvasUIListener {
+        void onNewStone(int[] ingamePoint);
+    }
 
 		/*
 		 * Image Size is 590,593
@@ -43,40 +49,48 @@ public class GameBoardCanvas extends Canvas {
 
     private int whatStone = 0;
 
+    private MouseAdapter mMouseAdapter;
+
+
+    private GameController mGameController;
+
     public GameBoardCanvas() {
         imageLoad();
         traker();
+    }
 
-			/*
-			 * Mouse Click! Event catch!!
-			 *
-			 */
-        addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int[] point = new int[2];
+    public void setGameBoardCanvasUIListener(final GameBoardCanvasUIListener listener){
+        if( mMouseAdapter == null) {
+            mMouseAdapter = new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    int[] point = new int[2];
 
-                if ((16 < e.getX() && e.getX() < 555) && 20 < e.getY()
-                        && e.getY() < 560) {
+                    if ((16 < e.getX() && e.getX() < 555) && 20 < e.getY()
+                            && e.getY() < 560) {
 
-                    System.out.println("mouse click!");
-                    point = FindCrossPoint.find(e.getX(), e.getY());
 
-                    if(!isStoneDraw(point)){}
-//                        client.sendMessage(point);
+                        point = FindCrossPoint.find(e.getX(), e.getY());
+                        System.out.println("click x:"+point[0]+" y:" + point[1]);
 
-//                    public void sendMessage(int[] location) {
-//                        this.data = new GameData(location, GameData.SEND_STONE_LOCATION);
-//
-//                        try {
-//                            out.writeObject(this.data);
-//                        } catch (IOException e) {
-//                            System.out.println("Exception : 362라인.");
-//                            e.printStackTrace();
-//                        }
-//                    }
+                        int[] ingamePoint = findIngamePoint(point);
+                        System.out.println("ingame x:"+ingamePoint[0]+" y:"+ingamePoint[1]);
+
+                        listener.onNewStone(ingamePoint);
+                    }
                 }
-            }
-        });
+            };
+        }
+        addMouseListener(mMouseAdapter);
+    }
+
+    public void removeGameBoardCanvasUIListener() {
+        removeMouseListener(mMouseAdapter);
+    }
+
+
+    public int[] findIngamePoint(int[] point) {
+        int[] ingamePoint= { point[X]/29+1, point[Y]/29+1};
+        return ingamePoint;
     }
 
     public void addHistory(int[] points, int kindOfStone) {
@@ -134,9 +148,11 @@ public class GameBoardCanvas extends Canvas {
             if (lastStone != null)
                 g.drawImage(lastStone, lastPoint[0], lastPoint[1], this);
 
-            System.out.println("add()" + historyOfStone);
-            lastPoint[0] = aStoneInfo.points[0];
-            lastPoint[1] = aStoneInfo.points[1];
+            System.out.println("history : " + historyOfStone);
+            // points = (int)((point + XSTART -10) / CELLSIZE) * CELLSIZE - 9;
+            lastPoint[0] = aStoneInfo.points[0] * 29 - 29 + XSTART;
+            lastPoint[1] = aStoneInfo.points[1] * 29 - 29 + YSTART;
+            // System.out.println(lastPoint[0]+" "+lastPoint[1]);
             lastStone = aStoneInfo.getStone();
 
             g.drawImage(aStoneInfo.getStone(), lastPoint[0], lastPoint[1], this);

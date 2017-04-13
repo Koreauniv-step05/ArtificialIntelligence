@@ -1,4 +1,4 @@
-package gui.stone;
+package view.stone;
 
 import java.net.URL;
 

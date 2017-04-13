@@ -1,6 +1,8 @@
-package gui.stone;
+package view.stone;
 
 import java.awt.*;
+
+import static consts.Consts.BLACK_STONE;
 
 /**
  * Created by jaeyoung on 2017. 4. 13..
@@ -14,8 +16,8 @@ public class StoneFactory {
 
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-    private Image[] stones = { toolkit.createImage(URLGetter.getResource("image/BlackStone.gif")),
-            toolkit.createImage(URLGetter.getResource("image/WhiteStone.gif"))	};
+    private Image blackstone = toolkit.createImage(URLGetter.getResource("image/BlackStone.gif"));
+    private Image whitestone = toolkit.createImage(URLGetter.getResource("image/WhiteStone.gif"));
 
     private StoneFactory() {}
 
@@ -24,6 +26,11 @@ public class StoneFactory {
     }
 
     public Image getStone(int index) {
-        return stones[index];
+        if (index == BLACK_STONE) {
+            return blackstone;
+        }
+        else {
+            return whitestone;
+        }
     }
 }

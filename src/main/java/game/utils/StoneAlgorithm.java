@@ -10,10 +10,10 @@ import static consts.Consts.Y;
  */
 public class StoneAlgorithm {
 
-    private int analysis(int[][] board, int xStart, int yStart) {
+    public static int analysis(int[][] board, int[] newStonePoint) {
         int[] point = new int[2];
-        point[0] = xStart;
-        point[1] = yStart;
+        point[0] = newStonePoint[X]-1;
+        point[1] = newStonePoint[Y]-1;
 
         int up = 0;
         int rightUp = 0;
@@ -41,13 +41,14 @@ public class StoneAlgorithm {
         result[3] = rightDown + leftUp;
 
         for (int i = 0; i < result.length; i++) {
+            // System.out.println(""+result[i]);
             if(result[i] == 4) return 1;
         }
 
         return -1;
     }
 
-    private int countSameStone(int[][] board, int[] point, int[] direction) {
+    private static int countSameStone(int[][] board, int[] point, int[] direction) {
         int[] checkPoint = new int[2];
 
         checkPoint[0] = point[0];
@@ -75,7 +76,7 @@ public class StoneAlgorithm {
         return count;
     }
 
-    private boolean checking(int[][] board, int[] point, int[] checkPoint) {
+    private static boolean checking(int[][] board, int[] point, int[] checkPoint) {
         int x = point[X];
         int y = point[Y];
         int x_check = checkPoint[X];
@@ -96,7 +97,7 @@ public class StoneAlgorithm {
 
     }
 
-    public void subLastStone(int[][] board, int[] subPoint) {
+    public static void subLastStone(int[][] board, int[] subPoint) {
         board[subPoint[X]-1][subPoint[Y]-1] = NONE_STONE;
     }
 }

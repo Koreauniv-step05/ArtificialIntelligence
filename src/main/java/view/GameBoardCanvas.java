@@ -97,22 +97,12 @@ public class GameBoardCanvas extends Canvas {
     public void addHistory(int[] points, int kindOfStone) {
         aStoneInfo = new StoneHistory(points, StoneFactory.getInstance().getStone(kindOfStone));
         historyOfStone.add(aStoneInfo);
-
+        // System.out.println("addHistory");
         repaint();
     }
 
     public void resetHistoryOfStone() {
         this.historyOfStone = new ArrayList<StoneHistory>();
-    }
-
-    // Version 1.01 update
-    protected boolean isStoneDraw(int[] points) {
-
-        for (StoneHistory temp : historyOfStone) {
-            if(temp.points[0] == points[0] && temp.points[1] == points[1])
-                return true;
-        }
-        return false;
     }
 
     public void subHistory(int count) {
@@ -128,16 +118,12 @@ public class GameBoardCanvas extends Canvas {
 
     public void paint(Graphics g) {
         g.drawImage(bi, 0, 0, this);
-//			// System.out.println("paint()!");
-//			update(g);
+        // System.out.println("paint");
+        //update(g);
     }
 
-    /*
-     * when mouse click, stone is draw.
-     */
     public void update(Graphics g) {
-
-//			// System.out.println("update()");
+		// System.out.println("update");
 
         drawStones(g);
     }
@@ -148,7 +134,7 @@ public class GameBoardCanvas extends Canvas {
      *
      */
     private void drawStones(Graphics g) {
-
+        // System.out.println("drawStones");
         if (!isRedraw) {
             if (lastStone != null)
                 g.drawImage(lastStone, lastPoint[0], lastPoint[1], this);

@@ -68,9 +68,11 @@ public class Game {
 
     public void noticeWinner() {
         if (this.turn == BLACK_STONE) {
+            System.out.println("Game: noticeWinner BLACK WIN");
             this.mPlayerBlack.noticeWin();
             this.mPlayerWhite.noticeDefeat();
         } else {
+            System.out.println("Game: noticeWinner WHITE WIN");
             this.mPlayerWhite.noticeWin();
             this.mPlayerBlack.noticeDefeat();
         }

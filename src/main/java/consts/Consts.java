@@ -27,4 +27,6 @@ public interface Consts {
 
     int HUMAN_PLAYER = 0;
     int AI_PLAYER = 1;
+
+    int VICTORY = 1;
 }

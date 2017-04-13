@@ -1,6 +1,7 @@
 package game.controller;
 
 import game.utils.Game;
+import game.utils.StoneAlgorithm;
 import game.utils.StoneListener;
 
 import static consts.Consts.*;
@@ -10,6 +11,7 @@ import static consts.Consts.*;
  */
 public class GameController {
     private Game mGame;
+    private boolean gameEnd = false;
 
     private int[][] board;
 
@@ -35,9 +37,16 @@ public class GameController {
         this.waitNewStone();
     }
 
+    private void waitNewGame() {
+        waitNewStone();
+    }
+
     private void waitNewStone() {
         this.mGame.getNewStone(this.board, new StoneListener() {
             public void onNewStone(int[] newStonePoint) {
+                if (gameEnd) {
+                    return;
+                }
                 // System.out.println("GameController: onNewStone");
                 if (isValidStone(newStonePoint)) {
                     // Update
@@ -45,17 +54,10 @@ public class GameController {
                     sendWasValidStone(newStonePoint);
 
                     // Rule chk
-                    if (false) { // todo winner?
+                    if (StoneAlgorithm.analysis(board, newStonePoint) == VICTORY) {
                         mGame.noticeWinner();
 
-                        try {
-                            // System.out.println("end");
-                            Thread.sleep(10000);
-                        } catch(InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        newGame();
+                        waitNewGame();
                         return;
                     }
 

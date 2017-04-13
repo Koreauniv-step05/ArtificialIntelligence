@@ -1,6 +1,6 @@
 package view;
 
-import controller.GameController;
+import user.controller.UserController;
 import view.stone.StoneFactory;
 import view.stone.StoneHistory;
 import view.stone.URLGetter;
@@ -52,7 +52,7 @@ public class GameBoardCanvas extends Canvas {
     private MouseAdapter mMouseAdapter;
 
 
-    private GameController mGameController;
+    private UserController mUserController;
 
     public GameBoardCanvas() {
         imageLoad();

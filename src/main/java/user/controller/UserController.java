@@ -1,4 +1,4 @@
-package controller;
+package user.controller;
 
 import config.Config;
 import view.GameBoardCanvas;
@@ -10,16 +10,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import static consts.Consts.BLACK_STONE;
+import static consts.Consts.NONE_STONE;
 
 /**
  * Created by jaeyoung on 2017. 4. 13..
  */
-public class GameController implements GameBoardCanvas.GameBoardCanvasUIListener {
+public class UserController implements GameBoardCanvas.GameBoardCanvasUIListener {
     int[][] board;
     private GameBoardView mGameBoardView;
 
-    public GameController() {
-        this.board = new int[19][19];
+    public UserController() {
         initBoard();
         mGameBoardView = new GameBoardView();
         attachUserActionListener();
@@ -34,8 +34,8 @@ public class GameController implements GameBoardCanvas.GameBoardCanvasUIListener
         JFrame frame = new JFrame("Network FIve Eyes Ver. 1.0");
         Container cp = frame.getContentPane();
 
-        GameController gameController = new GameController();
-        cp.add(gameController.getGameBoardView());
+        UserController userController = new UserController();
+        cp.add(userController.getGameBoardView());
 
         frame.setSize(650, 650);
         frame.setVisible(true);
@@ -49,8 +49,9 @@ public class GameController implements GameBoardCanvas.GameBoardCanvasUIListener
     }
 
     private void initBoard() {
+        this.board = new int[19][19];
         for(int i=0; i<19; i++)
-            for(int j=0; j<19; j++) board[i][j] = 0;
+            for(int j=0; j<19; j++) board[i][j] = NONE_STONE;
     }
 
     private void drawStoneToCanvas(int[] ingamePoint, boolean isBlack) {

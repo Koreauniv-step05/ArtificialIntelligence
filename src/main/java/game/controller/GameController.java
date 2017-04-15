@@ -1,5 +1,8 @@
 package game.controller;
 
+import ai.Evaluation;
+import ai.domain.State;
+import ai.utils.StateContains;
 import game.utils.Game;
 import game.utils.StoneAlgorithm;
 import game.utils.StoneListener;
@@ -21,7 +24,22 @@ public class GameController {
     }
 
     public static void main(String[] args) {
-        new GameController(new Game(HUMAN_PLAYER,HUMAN_PLAYER));
+        Evaluation evaluation = Evaluation.getInstance(new int[][]{
+                {1,0,0,0,0,1,-1,0,0,0},
+                {1,0,0,0,0,1,0,0,0,0},
+                {0,0,0,0,1,1,0,0,0,0},
+                {0,0,0,1,0,1,0,0,0,0},
+                {0,0,1,0,0,1,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0}
+        });
+
+        System.out.println(""+evaluation.eval());
+
+        //new GameController(new Game(HUMAN_PLAYER,HUMAN_PLAYER));
     }
 
     private void initBoard() {

@@ -16,63 +16,37 @@ import static consts.Consts.Y;
  */
 
 public class Evaluation {
+    public static float eval(State state) {
 
-    private static State mState;
-    private static Evaluation mInstance;
 
-    private Evaluation(int[][] mState) {
-        this.mState = new State(mState);
-    }
-
-    public static Evaluation getInstance(int[][] mState) {
-        if (mInstance == null) {
-            mInstance = new Evaluation(mState);
-        } else {
-            mInstance.setState(mState);
-        }
-
-        return mInstance;
-    }
-
-    private void setState(int[][] mState) {
-        this.mState.setState(mState);
-    }
-
-    private int[][] getState() {
-        return this.mState.getState();
-    }
-
-    public float evaluate() {
-        if (false) { // if infinity
-            return INF;
-        }
-
-        if (false) { // if zero
-            return ZERO;
-        }
-
-        // eval =
-
-        return eval();
-    }
-
-    public int eval() {
-        ArrayList<ArrayList<String>> arr = new ArrayList<ArrayList<String>>();
-        arr.add(mState.garo());
-        arr.add(mState.sero());
-        arr.add(mState.rightdowncross());
-        arr.add(mState.leftdowncross());
-
-        String seq = AA;
-        String seq2 = AB;
-        int count = 0;
+        float count = 0;
+        ArrayList<ArrayList<String>> everySequenceState = state.everySequenceState();
+        ArrayList<ArrayList<String>> everyEnemySequenceState = state.everyEnemySequenceState();
 
         for (ArrayList<String> each:
-             arr) {
-            count += StateContains.numOfContains(each,seq);
-            count += StateContains.numOfContains(each,seq2);
+                everySequenceState) {
+            count += calculateEvaluationFromEachSequence(each);
+//            System.out.println(count+" everySequenceState");
+        }
+
+        for (ArrayList<String> each:
+                everyEnemySequenceState) {
+            count -= calculateEvaluationFromEachSequence(each);
+//            System.out.println(count+" enemyState");
         }
 
         return count;
+    }
+
+    private static float calculateEvaluationFromEachSequence(ArrayList<String> each) {
+        float evaluation = 0;
+
+        String seq = AA;
+        evaluation += StateContains.numOfContains(each,seq) * AA_SCORE;
+
+        seq = AB;
+        evaluation += StateContains.numOfContains(each,seq) * AB_SCORE;
+
+        return evaluation;
     }
 }

@@ -24,20 +24,21 @@ public class GameController {
     }
 
     public static void main(String[] args) {
-        Evaluation evaluation = Evaluation.getInstance(new int[][]{
+        float ev = Evaluation.eval(new State(
+                new int[][]{
                 {1,0,0,0,0,1,-1,0,0,0},
-                {1,0,0,0,0,1,0,0,0,0},
-                {0,0,0,0,1,1,0,0,0,0},
-                {0,0,0,1,0,1,0,0,0,0},
-                {0,0,1,0,0,1,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
+                {1,0,0,0,0,1,-1,0,0,0},
+                {0,0,0,0,1,1,-1,0,0,0},
+                {0,0,0,1,0,1,-1,0,0,0},
+                {0,0,1,0,0,1,-1,0,0,0},
+                {0,1,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0}
-        });
+        }));
 
-        System.out.println(""+evaluation.eval());
+        System.out.println(""+ev);
 
         //new GameController(new Game(HUMAN_PLAYER,HUMAN_PLAYER));
     }

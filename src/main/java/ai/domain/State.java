@@ -1,6 +1,7 @@
 package ai.domain;
 
 
+import ai.Evaluation;
 import ai.utils.Matrix;
 
 import java.util.ArrayList;
@@ -25,17 +26,17 @@ public class State {
         this.state = state;
     }
 
-    public ArrayList<String> garo() {
+    public ArrayList<String> garo(int[][] state) {
         return toStringArr(state);
     }
 
-    public ArrayList<String> sero() {
+    public ArrayList<String> sero(int[][] state) {
         int[][] transState = Matrix.transpose(state);
 
         return toStringArr(transState);
     }
 
-    public ArrayList<String> leftdowncross() {
+    public ArrayList<String> leftdowncross(int[][] state) {
         ArrayList<String> strArr = new ArrayList<String>();
         String str = "";
 
@@ -62,7 +63,7 @@ public class State {
         return strArr;
     }
 
-    public ArrayList<String> rightdowncross() {
+    public ArrayList<String> rightdowncross(int[][] state) {
         ArrayList<String> strArr = new ArrayList<String>();
         String str = "";
 
@@ -106,5 +107,51 @@ public class State {
             strArr.add(str);
         }
         return strArr;
+    }
+
+    private int[][] enemyState() {
+        int[][] enemy = state.clone();
+//        String logstrA = "";
+//        String logstrB = "";
+
+        for (int i = 0; i < state.length; i++) {
+//            logstrA = "";
+//            logstrB = "";
+            enemy[i] = state[i].clone();
+            for (int j = 0; j < state[i].length; j++) {
+                enemy[i][j] = (-1)*state[i][j];
+//                logstrA = logstrA + state[i][j];
+//                logstrB = logstrB + enemy[i][j];
+            }
+
+//            System.out.println(""+logstrA);
+//            System.out.println(""+logstrB);
+        }
+
+        return enemy;
+    }
+
+    public ArrayList<ArrayList<String>> everySequenceState() {
+        ArrayList<ArrayList<String>> arr = new ArrayList<ArrayList<String>>();
+        arr.add(garo(state));
+        arr.add(sero(state));
+        arr.add(rightdowncross(state));
+        arr.add(leftdowncross(state));
+
+        return arr;
+    }
+
+    public ArrayList<ArrayList<String>> everyEnemySequenceState() {
+        ArrayList<ArrayList<String>> arr = new ArrayList<ArrayList<String>>();
+        arr.add(garo(enemyState()));
+        arr.add(sero(enemyState()));
+        arr.add(rightdowncross(enemyState()));
+        arr.add(leftdowncross(enemyState()));
+
+        return arr;
+    }
+
+    public float eval() {
+        return Evaluation.eval(this);
     }
 }

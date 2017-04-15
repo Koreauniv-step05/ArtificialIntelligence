@@ -1,13 +1,20 @@
 package ai;
 
+import ai.utils.Tree;
+
+import javax.swing.*;
+
 /**
  * Created by jaeyoung on 2017. 4. 14..
  */
 public class AiAlgorithm {
-    public static int[] searchSolution(int[][] state) {
-        float eval = Evaluation.getInstance(state).evaluate();
+    private static Tree tree;
 
-        System.out.println(eval);
+    public static int[] searchSolution(int[][] state) {
+        tree = new Tree(state);
+        float ev = tree.eval();
+
+        System.out.println(ev+"");
         return new int[]{0,0};
     }
 }

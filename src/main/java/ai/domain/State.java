@@ -138,7 +138,7 @@ public class State {
 //            logstrB = "";
             enemy[i] = state[i].clone();
             for (int j = 0; j < state[i].length; j++) {
-                enemy[i][j] = (-1)*state[i][j];
+                enemy[i][j] = (state[i][j]+1)%2+1;
 //                logstrA = logstrA + state[i][j];
 //                logstrB = logstrB + enemy[i][j];
             }

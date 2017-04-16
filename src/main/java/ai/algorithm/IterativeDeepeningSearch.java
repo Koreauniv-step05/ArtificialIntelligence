@@ -23,7 +23,7 @@ public class IterativeDeepeningSearch {
     public static void iterativeDeepeningSearch(State state) {
         GomokuTree root = new GomokuTree(state);
 
-        int targetDepth = 4;
+        int targetDepth = 3;
 //        int targetDepth = (int)INF;
         int presentDepth = 2;
         while(true) {

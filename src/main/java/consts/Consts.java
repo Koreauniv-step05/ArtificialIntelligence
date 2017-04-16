@@ -5,12 +5,12 @@ package consts;
  */
 public interface Consts {
     int BLACK_STONE = 1;
-    int WHITE_STONE = -1;
+    int WHITE_STONE = 2;
     int NONE_STONE = 0;
     int WALL_STONE = WHITE_STONE;
 
-    int BOARD_SIZE = 8;
-//    int BOARD_SIZE = 19;
+//    int BOARD_SIZE = 8;
+    int BOARD_SIZE = 19;
 
     int X = 0;
     int Y = 1;
@@ -36,7 +36,7 @@ public interface Consts {
 
     float INF = 100000.0f;
     // Evaluation
-    float GAMEEND = 10000.0f;
+    float GAMEEND = 1000000.0f;
     float ZERO = 0f;
     float FOUR_SEQ = 1000.0f;
     float THREE_SEQ = 100.0f;
@@ -49,7 +49,7 @@ public interface Consts {
     String AA = ""+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE;
     float AA_SCORE = GAMEEND*2;
     //  011110 INF Score1000
-    String AB = ""+NONE_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+NONE_STONE;
+    String AB = ""+NONE_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+NONE_STONE;
     float AB_SCORE = GAMEEND*2;
 
     // -111110 4R Score1000

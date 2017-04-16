@@ -30,13 +30,6 @@ public class GameController implements StoneListener {
         void showMsg(String msg);
     }
 
-//    void sendListenerYourTurn() {
-//        for (GameControllerListener listener:
-//        mGameControllerListener) {
-//            listener.onYourTurn();
-//        }
-//    }
-//
     void sendListenersNewStone(int[] newStonePoint, int stoneType) {
         this.blackPlayerListener.onNewStone(newStonePoint, stoneType);
         this.whitePlayerListener.onNewStone(newStonePoint, stoneType);
@@ -60,10 +53,8 @@ public class GameController implements StoneListener {
 
     private Player generatePlayer(int playerType) {
         if (playerType == AI_PLAYER) {
-            // System.out.println("Game: generatePlayer AI");
             return new AiPlayer();
-        } else { // if (playerType == HUMAN_PLAYER) {
-            // System.out.println("Game: generatePlayer USER");
+        } else {
             return new UserControllerImpl();
         }
     }
@@ -76,16 +67,7 @@ public class GameController implements StoneListener {
     }
 
     private boolean isProcessing=false;
-    public void rotateTurn(int[] newStonePoint) {
-        // System.out.println("Game: rotateTurn");
-
-        if(isProcessing) {
-            return;
-        } else {
-            isProcessing = true;
-
-            setBoardPointStatus(newStonePoint, this.turn);
-            sendListenersNewStone(newStonePoint,this.turn);
+    public void rotateTurn() {
             if (this.turn == BLACK_STONE) {
                 this.turn = WHITE_STONE;
                 isProcessing = false;
@@ -97,7 +79,6 @@ public class GameController implements StoneListener {
             }
         }
 
-    }
 
     private int getBoardPointStatus(int[] ingamePoint) {
         return this.state.getState()[ingamePoint[0]-1][ingamePoint[1]-1];
@@ -139,31 +120,42 @@ public class GameController implements StoneListener {
         }
 
         if(!isValidStone(newStonePoint)){ // invalid
-            Debug.printStateForDebug(state.getState());
+//            Debug.printStateForDebug(state.getState());
             showMsg("invalidStonePoint");
             return;
         }
 
-        if(isGameEnd()) {
-            noticeWinner();
+        if(isProcessing) {
             return;
+        } else {
+            isProcessing = true;
+
+            setBoardPointStatus(newStonePoint, this.turn);
+            sendListenersNewStone(newStonePoint, this.turn);
         }
-        rotateTurn(newStonePoint);
+
+        if(isGameEnd()) {
+            noticeWinner(blackOrWhite);
+            return;
+        } else {
+            rotateTurn();
+        }
     }
 
     public boolean isGameEnd() {
         float eval = state.eval();
-//        System.out.println("Evaluation:"+eval);
-//        Debug.printStateForDebug(state.getState());
+
         if (state.eval() > GAMEEND || state.eval() < -GAMEEND) {
+//            System.out.println("Evaluation:"+eval);
+//            Debug.printStateForDebug(state.getState());
             return true;
         } else {
             return false;
         }
     }
 
-    public void noticeWinner() {
-        if (this.turn == BLACK_STONE) {
+    public void noticeWinner(int blackOrWhite) {
+        if (blackOrWhite == BLACK_STONE) {
             System.out.println("Game: noticeWinner BLACK WIN");
             this.mPlayerBlack.noticeWin();
             this.mPlayerWhite.noticeDefeat();

@@ -23,8 +23,10 @@ public class IterativeDeepeningSearch {
     public static void iterativeDeepeningSearch(State state) {
         GomokuTree root = new GomokuTree(state);
 
+//      메모리 부족으로 깊이를 3으로 제한
         int targetDepth = 3;
 //        int targetDepth = (int)INF;
+//      깊이 2부터 탐색 시작
         int presentDepth = 2;
         while(true) {
             root.extendDeeper(presentDepth);

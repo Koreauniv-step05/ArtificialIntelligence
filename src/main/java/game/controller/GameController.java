@@ -1,5 +1,6 @@
 package game.controller;
 
+import ai.AiAlgorithm;
 import ai.Evaluation;
 import ai.domain.State;
 import ai.utils.StateContains;
@@ -24,21 +25,6 @@ public class GameController {
     }
 
     public static void main(String[] args) {
-        float ev = Evaluation.eval(new State(
-                new int[][]{
-                {1,0,0,0,0,1,-1,0,0,0},
-                {1,0,0,0,0,1,-1,0,0,0},
-                {0,0,0,0,1,1,-1,0,0,0},
-                {0,0,0,1,0,1,-1,0,0,0},
-                {0,0,1,0,0,1,-1,0,0,0},
-                {0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0}
-        }));
-
-        System.out.println(""+ev);
 
         //new GameController(new Game(HUMAN_PLAYER,HUMAN_PLAYER));
     }

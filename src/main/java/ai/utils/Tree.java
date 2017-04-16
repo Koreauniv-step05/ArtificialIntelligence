@@ -7,37 +7,37 @@ import java.util.ArrayList;
 /**
  * Created by jaeyoung on 2017. 4. 16..
  */
-public class Tree {
-    private ArrayList<Tree> children;
-    private State data;
+public abstract class Tree<T> {
+    protected ArrayList<Tree<T>> children;
+    protected T data;
 
-    public Tree(State data) {
+    public Tree(T data) {
         this.data = data;
-        this.children = new ArrayList<Tree>();
+        this.children = new ArrayList<Tree<T>>();
     }
 
-    public Tree(int[][] data) {
-        this.children = children;
-        this.data = new State(data);
+    public T getData() {
+        return data;
     }
 
-    public float eval() {
-        return data.eval();
-    }
-
-    public void addChild(Tree child){
+    public void addChild(Tree<T> child){
         this.children.add(child);
     }
-
-    public void addChild(State data) {
-        this.children.add(new Tree(data));
-    }
-
-    public ArrayList<Tree> getChildren() {
+    public ArrayList<Tree<T>> getChildren() {
         return this.children;
     }
-
     public int numOfChildren() {
         return this.children.size();
     }
+
+    public void addChildren(ArrayList<T> data) {
+        for (T each:
+                data) {
+
+            this.addChild(each);
+        }
+    }
+
+    public abstract float eval();
+    public abstract void addChild(T data);
 }

@@ -31,8 +31,9 @@ public interface Consts {
 
     int VICTORY = 1;
 
+    float INF = 100000.0f;
     // Evaluation
-    float INF = 10000.0f;
+    float GAMEEND = 10000.0f;
     float ZERO = 0f;
     float FOUR_SEQ = 1000.0f;
     float THREE_SEQ = 100.0f;
@@ -43,10 +44,10 @@ public interface Consts {
     // Eval Sequence
     //  11111 INF Score1
     String AA = ""+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE;
-    float AA_SCORE = INF;
+    float AA_SCORE = GAMEEND*2;
     //  011110 INF Score1000
     String AB = ""+NONE_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+NONE_STONE;
-    float AB_SCORE = INF;
+    float AB_SCORE = GAMEEND*2;
 
     // -111110 4R Score1000
     String BA = ""+WHITE_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+BLACK_STONE+NONE_STONE;

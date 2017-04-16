@@ -12,10 +12,18 @@ import static consts.Consts.WALL_STONE;
  * Created by jaeyoung on 2017. 4. 15..
  */
 public class State {
+    private Float evaluation;
     private int[][] state;
+    private int[] addedStonePoint;
 
     public State(int[][] state) {
         this.state = state;
+//        System.out.println("have no addedStonePoint Constructor");
+    }
+
+    public State(int[][] state, int addedStonePointX, int addedStonePointY) {
+        this.state = state;
+        this.addedStonePoint = new int[]{addedStonePointX, addedStonePointY};
     }
 
     public int[][] getState() {
@@ -152,6 +160,18 @@ public class State {
     }
 
     public float eval() {
-        return Evaluation.eval(this);
+        if(this.evaluation == null) {
+            this.evaluation = Evaluation.eval(this);
+        }
+
+        return this.evaluation;
+    }
+
+    public int[] getAddedStonePoint() {
+        return addedStonePoint;
+    }
+
+    public void setAddedStonePoint(int[] addedStonePoint) {
+        this.addedStonePoint = addedStonePoint;
     }
 }

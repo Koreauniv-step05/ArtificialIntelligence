@@ -135,30 +135,29 @@ public class GameBoardCanvas extends Canvas {
      */
     private void drawStones(Graphics g) {
         // System.out.println("drawStones");
-        if (!isRedraw) {
-            if (lastStone != null)
-                g.drawImage(lastStone, lastPoint[0], lastPoint[1], this);
+//        if (!isRedraw) {
+//            if (lastStone != null)
+//                g.drawImage(lastStone, lastPoint[0], lastPoint[1], this);
+//
+//            System.out.println("history : " + historyOfStone);
+//            // points = (int)((point + XSTART -10) / CELLSIZE) * CELLSIZE - 9;
+//            lastPoint[0] = aStoneInfo.points[0] * 29 - 29 + XSTART;
+//            lastPoint[1] = aStoneInfo.points[1] * 29 - 29 + YSTART;
+//            // // System.out.println(lastPoint[0]+" "+lastPoint[1]);
+//            lastStone = aStoneInfo.getStone();
+//
+//            g.drawImage(aStoneInfo.getStone(), lastPoint[0], lastPoint[1], this);
 
-            // System.out.println("history : " + historyOfStone);
-            // points = (int)((point + XSTART -10) / CELLSIZE) * CELLSIZE - 9;
-            lastPoint[0] = aStoneInfo.points[0] * 29 - 29 + XSTART;
-            lastPoint[1] = aStoneInfo.points[1] * 29 - 29 + YSTART;
-            // // System.out.println(lastPoint[0]+" "+lastPoint[1]);
-            lastStone = aStoneInfo.getStone();
+//        } else {
+        for (StoneHistory temp : historyOfStone) {
+            lastPoint[0] = temp.points[0] * 29 - 29 + XSTART;
+            lastPoint[1] = temp.points[1] * 29 - 29 + YSTART;
 
-            g.drawImage(aStoneInfo.getStone(), lastPoint[0], lastPoint[1], this);
-
-        } else {
-            for (StoneHistory temp : historyOfStone) {
-                g.drawImage(temp.getStone(), temp.points[0], temp.points[1], this);
-                lastPoint[0] = temp.points[0];
-                lastPoint[1] = temp.points[1];
-            }
-
-            isRedraw = false;
+            g.drawImage(temp.getStone(), lastPoint[0], lastPoint[1], this);
+//            lastPoint[0] = temp.points[0];
+//            lastPoint[1] = temp.points[1];
         }
-
-        if (lastStone != null) {
+        if (lastPoint != null) {
             g.setColor(Color.RED);
             g.fillRect(lastPoint[0]+8, lastPoint[1]+8, 7,7);
         }

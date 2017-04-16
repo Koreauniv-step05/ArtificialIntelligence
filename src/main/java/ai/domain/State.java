@@ -2,11 +2,14 @@ package ai.domain;
 
 
 import ai.Evaluation;
+import ai.algorithm.PossibleNextStone;
 import ai.utils.Matrix;
 
 import java.util.ArrayList;
 
 import static consts.Consts.WALL_STONE;
+import static consts.Consts.X;
+import static consts.Consts.Y;
 
 /**
  * Created by jaeyoung on 2017. 4. 15..
@@ -24,6 +27,14 @@ public class State {
     public State(int[][] state, int addedStonePointX, int addedStonePointY) {
         this.state = state;
         this.addedStonePoint = new int[]{addedStonePointX, addedStonePointY};
+    }
+
+    public void addNewStone(int[] newStonePoint, int stoneType) {
+        state[newStonePoint[X]][newStonePoint[Y]] = stoneType;
+    }
+
+    public void addNewStoneByIngamePoint(int[] ingamePoint, int stoneType) {
+        state[ingamePoint[X]-1][ingamePoint[Y]-1] = stoneType;
     }
 
     public int[][] getState() {
@@ -160,15 +171,20 @@ public class State {
     }
 
     public float eval() {
-        if(this.evaluation == null) {
-            this.evaluation = Evaluation.eval(this);
-        }
-
+//        if(this.evaluation == null) {
+        this.evaluation = Evaluation.eval(this);
+//        System.out.println("Evaluation " +this.evaluation);
+//        if (evaluation!=0)
+//            System.out.println("Evaluation " +this.evaluation);
         return this.evaluation;
     }
 
     public int[] getAddedStonePoint() {
-        return addedStonePoint;
+        if (addedStonePoint != null) {
+            return addedStonePoint;
+        } else {
+            return PossibleNextStone.possibleNextStonePoint(state);
+        }
     }
 
     public void setAddedStonePoint(int[] addedStonePoint) {

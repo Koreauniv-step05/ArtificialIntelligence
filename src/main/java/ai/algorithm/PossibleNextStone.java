@@ -17,6 +17,18 @@ public class PossibleNextStone {
         return possibleNextStone(state.getState(), stoneType);
     }
 
+    public static int[] possibleNextStonePoint(int[][] state) {
+
+        for (int i = 0; i < state.length; i++) {
+            for(int j=0; j<state[i].length; j++) {
+                if(state[i][j] == NONE_STONE) {
+                    return new int[]{i,j};
+                }
+            }
+        }
+        return new int[]{0,0};
+    }
+
     public static ArrayList<State> possibleNextStone(int[][] state, int stoneType) {
         ArrayList<State> nextStates = new ArrayList<State>();
 

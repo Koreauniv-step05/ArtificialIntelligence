@@ -24,12 +24,14 @@ public class UserControllerImpl implements UserController, GameBoardCanvas.GameB
     private Container mContainer;
     private StoneListener mStoneListener;
 
+    private int[][] mBoard;
+
     public UserControllerImpl() {
         this.mGameBoardView = new GameBoardView();
         this.attachUserActionListener();
         // this.detachUserActionListener();
 
-        this.mFrame = new JFrame("Network FIve Eyes Ver. 1.0");
+        this.mFrame = new JFrame("Gomoku-java");
         this.mContainer = this.mFrame.getContentPane();
         this.mContainer.add(this.mGameBoardView);
 
@@ -42,6 +44,10 @@ public class UserControllerImpl implements UserController, GameBoardCanvas.GameB
                 // System.out.println("Exit");
             }
         });
+    }
+
+    public void setBoard(int[][] board) {
+        this.mBoard = board;
     }
 
     public void setBlackOrWhite(int blackOrWhite) {
@@ -68,25 +74,19 @@ public class UserControllerImpl implements UserController, GameBoardCanvas.GameB
         // System.out.println("UserControllerImpl: onNewStone");
         if(mStoneListener != null) {
             // System.out.println("UserControllerImpl: onNewStone mStoneListener is not null");
-            this.mStoneListener.onNewStone(ingamePoint);
+            this.mStoneListener.onNewStone(ingamePoint,blackOrWhite);
             // System.out.println("UserControllerImpl: onNewStone removeStoneListener");
-            removeStoneListener();
         }
     }
 
-    private void setStoneListener(StoneListener listener) {
+    public void setStoneListener(StoneListener listener) {
         // System.out.println("UserControllerImpl: setStoneListener");
         this.mStoneListener = listener;
     }
 
-    private void removeStoneListener() {
-        // System.out.println("UserControllerImpl: setStoneListener");
-        this.mStoneListener = null;
-    }
-
     public void getNewStone(int[][] board, StoneListener listener) {
 //        this.showBoard(board);
-        // System.out.println("UserControllerImpl: getNewStone");
+        System.out.println("UserControllerImpl: getNewStone");
         this.setStoneListener(listener);
     }
 
@@ -104,10 +104,24 @@ public class UserControllerImpl implements UserController, GameBoardCanvas.GameB
     }
 
     public void noticeWin() {
-
+        showMsg("User Win");
     }
 
     public void noticeDefeat() {
+        showMsg("User Defeat");
+    }
 
+    // from gamecontroller
+    public void onYourTurn() {
+        showMsg("User onYourTurn");
+    }
+
+    public void onNewStone(int[] newStonePoint, int stoneType) {
+//        showMsg("View onNewStone drawStone"+(stoneType==BLACK_STONE));
+        this.mGameBoardView.drawStone(newStonePoint, stoneType==BLACK_STONE);
+    }
+
+    public void showMsg(String msg) {
+        System.out.println(msg);
     }
 }

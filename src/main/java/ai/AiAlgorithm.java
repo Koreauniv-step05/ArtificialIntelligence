@@ -1,5 +1,8 @@
 package ai;
 
+import ai.algorithm.IterativeDeepeningSearch;
+import ai.algorithm.TimeLimiter;
+import ai.domain.State;
 import ai.utils.GomokuTree;
 
 /**
@@ -9,11 +12,11 @@ public class AiAlgorithm {
     private static GomokuTree tree;
 
     public static int[] searchSolution(int[][] state) {
-        tree = new GomokuTree(state);
-        float ev = tree.eval();
+        IterativeDeepeningSearch.iterativeDeepeningSearch(new State(state));
+        int[] nextPoint = IterativeDeepeningSearch.getCurrentOptimalStonePoint();
 
-        System.out.println(ev+"");
-        return new int[]{0,0};
+        System.out.println("search complete");
+        return nextPoint;
     }
 
 

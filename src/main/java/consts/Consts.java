@@ -9,6 +9,9 @@ public interface Consts {
     int NONE_STONE = 0;
     int WALL_STONE = WHITE_STONE;
 
+    int BOARD_SIZE = 8;
+//    int BOARD_SIZE = 19;
+
     int X = 0;
     int Y = 1;
 

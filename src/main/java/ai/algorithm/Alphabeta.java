@@ -10,10 +10,10 @@ import static consts.Consts.INF;
 /**
  * Created by jaeyoung on 2017. 4. 16..
  */
-public class Alphabeta implements TimeListener {
+public class Alphabeta {
     private static boolean terminateFlag = false;
 
-    public void onTimeLimited() {
+    public static void onTimeLimited() {
         terminateFlag = true;
     }
 

@@ -14,15 +14,27 @@ import static consts.Consts.INF;
  */
 public class IterativeDeepeningSearch {
     private static int[] mCurrentOptimal;
+    private static boolean terminateFlag = false;
+
+    public static void onTimeLimited() {
+        terminateFlag = true;
+    }
 
     public static void iterativeDeepeningSearch(State state) {
         GomokuTree root = new GomokuTree(state);
 
-        int targetDepth = 3;
-        for (int i = 3; i <= targetDepth; i++) {
-            root.extendDeeper(targetDepth);
-            int[] nextPoint = alphabetaSearchFindNextState(root,i);
+        int targetDepth = 4;
+//        int targetDepth = (int)INF;
+        int presentDepth = 2;
+        while(true) {
+            root.extendDeeper(presentDepth);
+            int[] nextPoint = alphabetaSearchFindNextState(root,presentDepth);
             setCurrentOptimal(nextPoint);
+            presentDepth++;
+
+            if(terminateFlag || presentDepth == targetDepth){
+                break;
+            }
         }
     }
     private static void setCurrentOptimal(int[] nextStonePoint) {
@@ -36,7 +48,7 @@ public class IterativeDeepeningSearch {
 
     private static int[] alphabetaSearchFindNextState(Tree root, int targetDepth) {
         State state = Alphabeta.alphabetaSearchForFindBestState(root,0,-INF, INF, true, targetDepth);
-        Debug.printStateForDebug(state.getState());
+        // Debug.printStateForDebug(state.getState());
         return state.getAddedStonePoint();
     }
 }
